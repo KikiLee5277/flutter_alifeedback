@@ -7,18 +7,23 @@ Android接入需要在主工程的AndroidManifest中引入com.mmqq.flutter_ali_f
 
 flutter中使用方法:
 在首页initState方法中注册
+
  Future<void> initFeedBack() async {
     bool  success = await FlutterAliFeedback.initFeedBack('appKey', 'appSecret');
  }
+ 
 在需要的地方调用打开反馈页面:
+
 () async{
     bool success = await FlutterAliFeedback.openFeedBack(null);
  }
 
 获取反馈未读消息数:
+
 () async{
     var unReadCount = await FlutterAliFeedback.getUnReadFeedBackCount;
  }
+ 
 
 ## Getting Started
 
