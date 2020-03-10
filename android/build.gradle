@@ -1,0 +1,43 @@
+group 'com.mmqq.flutter_ali_feedback'
+version '1.0'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.0'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 16
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+dependencies {
+    implementation 'com.aliyun.ams:alicloud-android-feedback:3.3.1'
+    implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
+    implementation 'com.aliyun.ams:alicloud-android-ut:5.4.3'
+    implementation 'com.aliyun.ams:alicloud-android-utils:1.1.5'
+}
