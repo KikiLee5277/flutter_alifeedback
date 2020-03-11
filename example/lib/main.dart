@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -44,8 +46,10 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> initFeedBack() async {
     bool success;
+    String appKey = Platform.isIOS ?'28588453':'28502624';
+    String appSecret = Platform.isIOS ?'dccf6241a45879256fc24149137b0ec3':'a92e28e1787aab06b34f9a6eaaa6da74';
     try {
-      success = await FlutterAliFeedback.initFeedBack('28502624', 'a92e28e1787aab06b34f9a6eaaa6da74');
+      success = await FlutterAliFeedback.initFeedBack(appKey, appSecret);
     } on PlatformException {
       success = false;
     }
