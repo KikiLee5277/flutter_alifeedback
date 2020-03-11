@@ -3,7 +3,10 @@
 flutter版本的阿里反馈sdk集成
 
 Android接入需要在主工程的AndroidManifest中引入com.mmqq.flutter_ali_feedback.AliFeedBackApplication类
-
+iOS需要在 Podfile 文件中添加如下内容：
+# 指定 Master 仓库和阿里云仓库
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/aliyun/aliyun-specs.git'
 
 flutter中使用方法:
 在首页initState方法中注册
