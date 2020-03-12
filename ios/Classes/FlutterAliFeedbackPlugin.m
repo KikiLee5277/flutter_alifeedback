@@ -1,9 +1,9 @@
 #import "FlutterAliFeedbackPlugin.h"
-#import <YWFeedbackFMWK/YWFeedbackKit.h>
+//#import <YWFeedbackFMWK/YWFeedbackKit.h>
 
 @interface FlutterAliFeedbackPlugin ()
 
-@property (nonatomic, strong) YWFeedbackKit *feedbackKit;
+//@property (nonatomic, strong) YWFeedbackKit *feedbackKit;
 
 @end
 
@@ -19,69 +19,69 @@
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"getPlatformVersion" isEqualToString:call.method]) {
       result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
-  } else if ([@"initFeedBack" isEqualToString:call.method]) {
-      result(@([self feedbackInitWithAppKey:call.arguments[@"AppKey"] appSecret:call.arguments[@"AppSecret"]]));
-  } else if ([@"openFeedBack" isEqualToString:call.method]) {
-      result(@([self openFeedbackViewControllerWithExtInfo:call.arguments]));
-  } else if ([@"getUnReadFeedBackCount" isEqualToString:call.method]) {
-      result([self getUnReadFeedBackCount]);
+//  } else if ([@"initFeedBack" isEqualToString:call.method]) {
+//      result(@([self feedbackInitWithAppKey:call.arguments[@"AppKey"] appSecret:call.arguments[@"AppSecret"]]));
+//  } else if ([@"openFeedBack" isEqualToString:call.method]) {
+//      result(@([self openFeedbackViewControllerWithExtInfo:call.arguments]));
+//  } else if ([@"getUnReadFeedBackCount" isEqualToString:call.method]) {
+//      result([self getUnReadFeedBackCount]);
   } else {
       result(FlutterMethodNotImplemented);
   }
 }
 
-- (BOOL)feedbackInitWithAppKey:(NSString *)appKey appSecret:(NSString *)appSecret {
-    if (appKey == nil ||
-        [appKey isKindOfClass:[NSString class]] == NO ||
-        appSecret == nil ||
-        [appSecret isKindOfClass:[NSString class]] == NO) {
-        return NO;
-    }
-    self.feedbackKit = [[YWFeedbackKit alloc] initWithAppKey:appKey
-                                                   appSecret:appSecret];
-    return YES;
-}
-
-- (BOOL)openFeedbackViewControllerWithExtInfo:(NSDictionary *)extInfo {
-    if (self.feedbackKit == nil) {
-        return NO;
-    }
-    if (extInfo && [extInfo isKindOfClass:[NSDictionary class]]) {
-        self.feedbackKit.extInfo = extInfo;
-    }
-    __block BOOL result = NO;
-    [self.feedbackKit makeFeedbackViewControllerWithCompletionBlock:^(BCFeedbackViewController *viewController, NSError *error) {
-        if (viewController != nil) {
-            [viewController setCloseBlock:^(UIViewController *aParentController){
-                [aParentController dismissViewControllerAnimated:YES completion:nil];
-            }];
-            
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewController];
-            UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
-            [rootVC presentViewController:nav animated:YES completion:^{
-                
-            }];
-            
-            result = YES;
-        } else {
-            result = NO;
-        }
-    }];
-    return result;
-}
-
-- (NSNumber *)getUnReadFeedBackCount {
-    if (self.feedbackKit == nil) {
-        return @0;
-    } else {
-        __block NSNumber *result = @0;
-        [self.feedbackKit getUnreadCountWithCompletionBlock:^(NSInteger unreadCount, NSError *error) {
-            if (error == nil) {
-                result = @(unreadCount);
-            }
-        }];
-        return result;
-    }
-}
+//- (BOOL)feedbackInitWithAppKey:(NSString *)appKey appSecret:(NSString *)appSecret {
+//    if (appKey == nil ||
+//        [appKey isKindOfClass:[NSString class]] == NO ||
+//        appSecret == nil ||
+//        [appSecret isKindOfClass:[NSString class]] == NO) {
+//        return NO;
+//    }
+//    self.feedbackKit = [[YWFeedbackKit alloc] initWithAppKey:appKey
+//                                                   appSecret:appSecret];
+//    return YES;
+//}
+//
+//- (BOOL)openFeedbackViewControllerWithExtInfo:(NSDictionary *)extInfo {
+//    if (self.feedbackKit == nil) {
+//        return NO;
+//    }
+//    if (extInfo && [extInfo isKindOfClass:[NSDictionary class]]) {
+//        self.feedbackKit.extInfo = extInfo;
+//    }
+//    __block BOOL result = NO;
+//    [self.feedbackKit makeFeedbackViewControllerWithCompletionBlock:^(BCFeedbackViewController *viewController, NSError *error) {
+//        if (viewController != nil) {
+//            [viewController setCloseBlock:^(UIViewController *aParentController){
+//                [aParentController dismissViewControllerAnimated:YES completion:nil];
+//            }];
+//
+//            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewController];
+//            UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+//            [rootVC presentViewController:nav animated:YES completion:^{
+//
+//            }];
+//
+//            result = YES;
+//        } else {
+//            result = NO;
+//        }
+//    }];
+//    return result;
+//}
+//
+//- (NSNumber *)getUnReadFeedBackCount {
+//    if (self.feedbackKit == nil) {
+//        return @0;
+//    } else {
+//        __block NSNumber *result = @0;
+//        [self.feedbackKit getUnreadCountWithCompletionBlock:^(NSInteger unreadCount, NSError *error) {
+//            if (error == nil) {
+//                result = @(unreadCount);
+//            }
+//        }];
+//        return result;
+//    }
+//}
 
 @end
